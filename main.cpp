@@ -2,6 +2,8 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <map>
+#include <vector>
 #include <unistd.h>
 
 using namespace std;
@@ -14,6 +16,8 @@ condition_variable senderCv;
 mutex receieverMtx;
 condition_variable receiverCv;
 
+map<int, vector<string>> buffer;
+
 
 void receiver()
 {
@@ -21,6 +25,19 @@ void receiver()
 	receiverCv.wait(lck);
 
 	cout << "Receiver thread\n";
+
+	while( !buffer.empty() )
+	{
+		map<int, vector<string>>::iterator it = buffer.begin();
+	        if( !( it->second.empty() ) )
+        	{
+                	vector<string>::iterator itstr = it->second.begin();
+	                cout << "Processing data: " << *itstr << "\n";
+        	        it->second.erase( itstr );
+                	if( it->second.empty() )
+                        	buffer.erase( it );
+	        }
+	}
 }
 
 void sender( int sender_id )
@@ -28,7 +45,21 @@ void sender( int sender_id )
 	unique_lock<mutex> lck(senderMtx);
 	senderCv.wait(lck);
 
-	cout << "Sender thread: " << sender_id << "\n";
+	string message = to_string( sender_id ) + "abcde";
+        map<int, vector<string>>::iterator it = buffer.find( sender_id );
+        if( it != buffer.end() )
+	{
+                it->second.push_back( message );
+	}
+        else
+        {
+                vector<string> str;
+                str.push_back( message );
+                buffer.insert( pair<int, vector<string>>( sender_id, str ) );
+        }
+
+	cout << "Sender_" << sender_id << " sending data: " << message << "\n";
+
 	--numberOfSenders;
 	if( !numberOfSenders )
 		receiverCv.notify_one();
@@ -48,8 +79,6 @@ int main()
 	}
 
 	thread rcv = thread( receiver );
-
-	sleep(1);
 
 	senderCv.notify_all();
 
