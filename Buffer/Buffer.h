@@ -18,6 +18,7 @@ class Buffer
 		{}
 
 	public:
+		~Buffer(){}
 		static Buffer *m_bufferInstance;
 		static Buffer *getInstance()
 		{
