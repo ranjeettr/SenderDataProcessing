@@ -14,9 +14,8 @@ void Sender::SendData( int sender_id )
         m_senderCv.wait(lck);
 
 	string message = to_string( sender_id ) + "abcde";
-	m_buffer->writeData( message, sender_id );
-
         cout << "Sender_" << sender_id << " sending data: " << message << "\n";
+	m_buffer->writeData( message, sender_id );
 
 	--numberOfSenders;
 	if( !numberOfSenders )
