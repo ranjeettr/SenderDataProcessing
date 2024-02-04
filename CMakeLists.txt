@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13.4)
 
-project(msgproc)
+project(processmessages)
 
 
 set(CMAKE_C_COMPILER "/usr/bin/gcc")
