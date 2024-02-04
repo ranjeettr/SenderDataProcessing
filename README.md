@@ -21,5 +21,6 @@ Build Process
 1. To build this, download and install g++, CMake and make
 2. Once you copy/checkout this code, run make in the top level directory
 3. After running make, the binary processmessages will deployed in the build directory
-4. Execute the binary as <path to build-directory>/processmessages
+4. Go to build directory
+5. Execute the binary as ./processmessages
 
