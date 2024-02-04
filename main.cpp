@@ -1,10 +1,5 @@
 #include <iostream>
 #include <thread>
-#include <mutex>
-#include <condition_variable>
-#include <map>
-#include <vector>
-#include <unistd.h>
 #include "Sender.h"
 #include "Receiver.h"
 
@@ -26,6 +21,11 @@ int main()
 
 	cout << "How many messages per sender you want to send: ";
 	cin >> numberOfMessagesPerSender;
+
+	if( numberOfMessagesPerSender < 2 )
+	{
+		cout << "WARNING: Try sending more than 2 messages per sender to see messages being sent in a random order\n";
+	}
 
 	thread rcv = thread( &Receiver::ProcessData, Receiver::getInstance() );
 
