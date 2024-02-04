@@ -18,6 +18,12 @@ int main()
 	cin >> numberOfSenders;
 	Sender::getInstance()->SetNumberOfSenders( numberOfSenders );
 
+	if( numberOfSenders < 3 )
+	{
+		cout << "ERROR: Number of senders should be greater than or equal to 3\n";
+		exit(1);
+	}
+
 	cout << "How many messages per sender you want to send: ";
 	cin >> numberOfMessagesPerSender;
 
