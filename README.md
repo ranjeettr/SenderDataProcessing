@@ -24,3 +24,8 @@ Build Process
 4. Go to build directory
 5. Execute the binary as ./processmessages
 
+
+
+1. The directory Buffer contains the data structure that stores data sent by N senders
+2. The directory Sender contains code for Sender threads and sending data
+3. The directory Receiver contains code for processing data in sorted order of sender_id
