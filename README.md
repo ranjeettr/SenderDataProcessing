@@ -13,3 +13,5 @@ Data should be processed in the order
 1aaaa
 2qweq
 3zxcv
+
+Note:- The order in which senders send data is dependent on OS scheduling the sender threads
