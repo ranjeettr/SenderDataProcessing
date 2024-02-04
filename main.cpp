@@ -12,21 +12,22 @@ using namespace std;
 
 int main()
 {
-	int numberOfSenders = 0;
+	int numberOfSenders = 0, numberOfMessagesPerSender = 0;
+
 	cout << "How many senders you want to create: ";
 	cin >> numberOfSenders;
 	Sender::getInstance()->SetNumberOfSenders( numberOfSenders );
 
-	thread threads[numberOfSenders];
-
-	for( int i = 0; i < numberOfSenders; i++ )
-	{
-		threads[i] = thread( &Sender::SendData, Sender::getInstance(), i+1 );
-	}
+	cout << "How many messages per sender you want to send: ";
+	cin >> numberOfMessagesPerSender;
 
 	thread rcv = thread( &Receiver::ProcessData, Receiver::getInstance() );
 
-	Sender::getInstance()->StartAllSenders();
+	thread threads[numberOfSenders];
+	for( int i = 0; i < numberOfSenders; i++ )
+	{
+		threads[i] = thread( &Sender::SendData, Sender::getInstance(), i+1, numberOfMessagesPerSender );
+	}
 
 	for( auto &ths : threads )
 		ths.join();

@@ -10,14 +10,12 @@ class Sender
 	private:
 		Sender() : m_buffer( Buffer::getInstance() ),
 				m_senderMtx(),
-				m_senderCv(),
 				numberOfSenders(0)
 		{
 		}
 
 		Buffer *m_buffer;
 		mutex m_senderMtx;
-		condition_variable m_senderCv;
 
 		int numberOfSenders;
 
@@ -32,8 +30,7 @@ class Sender
 		}
 
 		void SetNumberOfSenders( int no );
-		void SendData( int sender_id );
-		void StartAllSenders();
+		void SendData( int sender_id, int numberOfMessages );
 };
 
 

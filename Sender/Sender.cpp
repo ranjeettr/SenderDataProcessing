@@ -8,23 +8,31 @@ void Sender::SetNumberOfSenders( int no )
 	numberOfSenders = no;
 }
 
-void Sender::SendData( int sender_id )
+string generateRandomString( int len )
 {
-        unique_lock<mutex> lck(m_senderMtx);
-        m_senderCv.wait(lck);
+	const char alphnum[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	string tmp;
 
-	string message = to_string( sender_id ) + "abcde";
-        cout << "Sender_" << sender_id << " sending data: " << message << "\n";
-	m_buffer->writeData( message, sender_id );
-
-	--numberOfSenders;
-	if( !numberOfSenders )
-		Receiver::getInstance()->StartProcessing();
-
-	m_senderCv.notify_all();
+	for( int i = 0; i < len; i++ )
+	{
+		tmp += alphnum[ rand() % ( sizeof( alphnum ) - 1 ) ];
+	}
+	return tmp;
 }
 
-void Sender::StartAllSenders()
+void Sender::SendData( int sender_id, int numberOfMessages )
 {
-	m_senderCv.notify_all();
+	while( numberOfMessages-- )
+	{
+		string message = to_string( sender_id ) + generateRandomString(5);
+        	cout << "Sender_" << sender_id << " sending data: " << message << "\n";
+		m_buffer->writeData( message, sender_id );
+	}
+
+	{
+        	unique_lock<mutex> lck(m_senderMtx);
+		--numberOfSenders;
+		if( !numberOfSenders )
+			Receiver::getInstance()->StartProcessing();
+	}
 }
