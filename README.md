@@ -19,13 +19,21 @@ Note:- The order in which senders send data is dependent on OS scheduling the se
 Build Process
 =============
 1. To build this, download and install g++, CMake and make
-2. Once you copy/checkout this code, run make in the top level directory
+2. Once you copy/checkout this code, run "make" in the top level directory
 3. After running make, the binary processmessages will deployed in the build directory
 4. Go to build directory
 5. Execute the binary as ./processmessages
+6. In order to delete the build artifactories, run "make clean"
 
 
 
 1. The directory Buffer contains the data structure that stores data sent by N senders
 2. The directory Sender contains code for Sender threads and sending data
 3. The directory Receiver contains code for processing data in sorted order of sender_id
+
+
+
+If you have any questions, please reachout to ranjeettr@gmail.com
+
+Thanks,
+Ranjeet

@@ -8,7 +8,7 @@ void Sender::SetNumberOfSenders( int no )
 	numberOfSenders = no;
 }
 
-string generateRandomString( int len )
+string Sender::generateRandomString( int len )
 {
 	const char alphnum[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	string tmp;

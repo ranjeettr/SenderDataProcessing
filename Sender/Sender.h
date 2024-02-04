@@ -19,6 +19,8 @@ class Sender
 
 		int numberOfSenders;
 
+		string generateRandomString( int len );
+
 	public:
 		~Sender(){}
 		static Sender *m_sender;
