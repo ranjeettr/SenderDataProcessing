@@ -15,3 +15,11 @@ Data should be processed in the order
 3zxcv
 
 Note:- The order in which senders send data is dependent on OS scheduling the sender threads
+
+Build Process
+=============
+1. To build this, download and install g++, CMake and make
+2. Once you copy/checkout this code, run make in the top level directory
+3. After running make, the binary processmessages will deployed in the build directory
+4. Execute the binary as <path to build directory>/processmessages
+
